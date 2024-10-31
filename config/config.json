@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "manage-user-custom-actions-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/manageUserCustomActions/ManageUserCustomActionsWebPart.js",
+          "manifest": "./src/webparts/manageUserCustomActions/ManageUserCustomActionsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "ManageUserCustomActionsWebPartStrings": "lib/webparts/manageUserCustomActions/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}

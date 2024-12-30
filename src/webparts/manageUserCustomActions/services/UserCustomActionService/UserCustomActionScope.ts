@@ -1,0 +1,1 @@
+export type UserCustomActionScope = 'web' | 'site';

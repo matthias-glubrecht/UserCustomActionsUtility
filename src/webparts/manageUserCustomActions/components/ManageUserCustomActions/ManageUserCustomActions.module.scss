@@ -1,6 +1,18 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .manageUserCustomActions {
+  .dialog {
+    width: 600px;
+    height: 600px;
+    background-color: teal;
+  }
+
+  .dialogContainer {
+    width: 600px;
+    height: 600px;
+    background-color: teal;
+  }
+
   .container {
     max-width: 700px;
     margin: 0px auto;
@@ -9,17 +21,14 @@
 
   .row {
     @include ms-Grid-row;
-    @include ms-fontColor-white;
-    background-color: $ms-color-themeDark;
-    padding: 20px;
   }
 
   .column {
     @include ms-Grid-col;
-    @include ms-lg10;
-    @include ms-xl8;
-    @include ms-xlPush2;
-    @include ms-lgPush1;
+    @include ms-xl6;
+    @include ms-lg6;
+    @include ms-md6;
+    @include ms-sm12;
   }
 
   .title {

@@ -23,27 +23,48 @@
     @include ms-Grid-row;
   }
 
+  .userCustomActionsTable {
+    border-collapse: collapse;
+    width: 100%;
+
+    thead {
+      background-color: $ms-color-themePrimary;
+      color: $ms-color-white;
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: $ms-color-neutralLighter;
+      }
+
+      tr:hover {
+        background-color: $ms-color-neutralLight;
+      }
+
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid $ms-color-neutralLight;
+
+        .actionButton {
+          margin: 4px;
+          border: none;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $ms-color-neutralLight;
+          }
+        }
+      }
+    }
+  }
+
   .column {
     @include ms-Grid-col;
     @include ms-xl6;
     @include ms-lg6;
     @include ms-md6;
     @include ms-sm12;
-  }
-
-  .title {
-    @include ms-font-xl;
-    @include ms-fontColor-white;
-  }
-
-  .subTitle {
-    @include ms-font-l;
-    @include ms-fontColor-white;
-  }
-
-  .description {
-    @include ms-font-l;
-    @include ms-fontColor-white;
   }
 
   .button {
@@ -60,7 +81,7 @@
     // Basic Button
     outline: transparent;
     position: relative;
-    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: $ms-font-size-m;
     font-weight: $ms-font-weight-regular;

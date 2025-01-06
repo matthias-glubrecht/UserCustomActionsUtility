@@ -4,7 +4,8 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
-  IPropertyPaneConfiguration
+  IPropertyPaneConfiguration,
+  PropertyPaneTextField
 } from '@microsoft/sp-webpart-base';
 import { PropertyFieldCollectionData, CustomCollectionFieldType } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 
@@ -14,6 +15,7 @@ import { IManageUserCustomActionsProps } from './components/ManageUserCustomActi
 import { IUserCustomActionProps } from './services/UserCustomActionService/IUserCustomActionProps';
 
 export interface IManageUserCustomActionsWebPartProps {
+  webPartTitle: string;
   actions: IUserCustomActionProps[];
 }
 
@@ -24,7 +26,10 @@ export default class ManageUserCustomActionsWebPart extends BaseClientSideWebPar
       ManageUserCustomActions,
       {
         actions: this.properties.actions,
-        context: this.context
+        webPartTitle: this.properties.webPartTitle,
+        updateTitle: this._updateTitle,
+        context: this.context,
+        displayMode: this.displayMode
       }
     );
 
@@ -51,6 +56,11 @@ export default class ManageUserCustomActionsWebPart extends BaseClientSideWebPar
             {
               groupName: strings.BasicGroupName,
               groupFields: [
+                PropertyPaneTextField('webPartTitle', {
+                  label: strings.WebPartTitleFieldLabel,
+                  value: this.properties.webPartTitle || strings.WebPartTitle,
+                  description: strings.WebPartTitleFieldDescription
+                }),
                 PropertyFieldCollectionData('actions', {
                   key: 'actions',
                   label: 'Vordefinierte User Custom Actions',
@@ -167,5 +177,10 @@ export default class ManageUserCustomActionsWebPart extends BaseClientSideWebPar
         }
       ]
     };
+  }
+
+  private _updateTitle = (title: string): void => {
+    this.properties.webPartTitle = title;
+   // this.render();
   }
 }

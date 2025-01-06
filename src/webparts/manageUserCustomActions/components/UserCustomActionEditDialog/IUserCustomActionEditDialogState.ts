@@ -1,4 +1,4 @@
-import { IUserCustomActionProps } from "../../services/UserCustomActionService/IUserCustomActionProps";
+import { IUserCustomActionProps } from '../../services/UserCustomActionService/IUserCustomActionProps';
 
 export interface IUserCustomActionEditDialogState {
     userCustomAction: IUserCustomActionProps;

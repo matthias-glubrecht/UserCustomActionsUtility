@@ -8,7 +8,12 @@ import { UserCustomActionScope } from './UserCustomActionScope';
 import { IUserCustomActionProps } from './IUserCustomActionProps';
 
 export class UserCustomActionService implements IUserCustomActionService {
-    public async getUserCustomActions(context: WebPartContext, scope: UserCustomActionScope): Promise<IUserCustomActionProps[]> {
+    constructor(context: WebPartContext) {
+        sp.setup({
+            spfxContext: context
+        });
+     }
+    public async getUserCustomActions(scope: UserCustomActionScope): Promise<IUserCustomActionProps[]> {
         try {
             let actions: UserCustomActions | IUserCustomActionProps[];
             switch (scope) {
@@ -28,7 +33,7 @@ export class UserCustomActionService implements IUserCustomActionService {
         }
     }
 
-    public async getUserCustomActionById(context: WebPartContext, scope: UserCustomActionScope, id: string): Promise<IUserCustomActionProps> {
+    public async getUserCustomActionById(scope: UserCustomActionScope, id: string): Promise<IUserCustomActionProps> {
         try {
             switch (scope) {
                 case 'web':
@@ -44,7 +49,7 @@ export class UserCustomActionService implements IUserCustomActionService {
         }
     }
 
-    public async addUserCustomAction(context: WebPartContext, scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<UserCustomActionAddResult> {
+    public async addUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<UserCustomActionAddResult> {
         try {
             switch (scope) {
                 case 'web':
@@ -60,7 +65,7 @@ export class UserCustomActionService implements IUserCustomActionService {
         }
     }
 
-    public async updateUserCustomAction(context: WebPartContext, scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<IUserCustomActionProps> {
+    public async updateUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<IUserCustomActionProps> {
         try {
             switch (scope) {
                 case 'web':
@@ -76,7 +81,7 @@ export class UserCustomActionService implements IUserCustomActionService {
         }
     }
 
-    public async deleteUserCustomAction(context: WebPartContext, scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<void> {
+    public async deleteUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<void> {
         try {
             switch (scope) {
                 case 'web':

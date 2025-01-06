@@ -1,6 +1,7 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-any
 // tslint:disable:export-name
+// tslint:disable:no-null-keyword
 import * as React from 'react';
 import styles from '../ManageUserCustomActions/ManageUserCustomActions.module.scss';
 import { IManageUserCustomActionsProps } from './IManageUserCustomActionsProps';
@@ -17,22 +18,24 @@ import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 // import { DisplayMode } from '@microsoft/sp-core-library';
 import Utility from '../../Utility/Utility';
 import { IUserCustomActionProps } from '../../services/UserCustomActionService/IUserCustomActionProps';
+import { WebPartTitle } from '@pnp/spfx-controls-react';
 
 export default class ManageUserCustomActions extends React.Component<IManageUserCustomActionsProps, IManageUserCustomActionsState> {
   private _service: IUserCustomActionService;
 
   constructor(props: IManageUserCustomActionsProps) {
     super(props);
+    this._service = new UserCustomActionService(this.props.context);
     this.state = {
       scope: Utility.GetQueryStringParameter('scope') === 'site' ? 'site' : 'web',
       userCustomActions: [],
-      isLoading: false
+      isLoading: false,
+      editCustomAction: null
     };
   }
 
   public componentDidMount(): void {
     // Load user custom actions
-    this._service = new UserCustomActionService();
     this.readDataAndSetState();
   }
 
@@ -44,50 +47,85 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
 
   public render(): React.ReactElement<IManageUserCustomActionsProps> {
     return (
-      <RestrictedContainer Context={this.props.context} RequiredPermissions={SPPermission.manageWeb} NoAccessMessage={strings.NoAccess}>
-        <div className={styles.container}>
-          <div className={styles.row}>
-            <div className={styles.column}>
-              Wählen Sie die Art der UserCustomActions aus
-            </div>
-            <div className={styles.column}>
-              <ChoiceGroup selectedKey={this.state.scope} onChange={this.scopeChanged}
-                options={[
-                  { key: 'web', text: `Website (${this.props.context.pageContext.web.absoluteUrl})`},
-                  { key: 'site', text: `Websitesammlung (${this.props.context.pageContext.site.absoluteUrl})`}
-                ]}
-              />
-            </div>
-          </div>
-          <div className={styles.row}>
-            {this.state.isLoading ? (
-              <div>Loading...</div>
-            ) : (
-              <div>
-                {this.state.userCustomActions.length > 0 ? (
-                  <ul>
-                    {this.state.userCustomActions.map(action => (
-                      <li key={action.Id}>{action.Title}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div>No user custom actions found.</div>
-                )}
+      <div className={styles.manageUserCustomActions}>
+        <WebPartTitle displayMode={this.props.displayMode} title={this.props.webPartTitle} updateProperty={this.props.updateTitle} />
+        <RestrictedContainer Context={this.props.context} RequiredPermissions={SPPermission.manageWeb} NoAccessMessage={strings.NoAccess}>
+          <div className={styles.container}>
+            <div className={styles.row}>
+              <div className={styles.column}>
+                <label>{strings.SelectUserCustomActionScope}</label>
               </div>
-            )}
+              <div className={styles.column}>
+                <ChoiceGroup selectedKey={this.state.scope} onChange={this.scopeChanged}
+                  options={[
+                    { key: 'web', text:  strings.Website },
+                    { key: 'site', text: strings.SiteCollection }
+                  ]}
+                />
+              </div>
+            </div>
+            <div className={styles.row}>
+              {this.state.isLoading ? (
+                <div>{strings.Loading}</div>
+              ) : (
+                <div>
+                  {this.state.userCustomActions.length > 0 ? (
+                    <table className={styles.userCustomActionsTable}>
+                      <thead>
+                        <tr>
+                          <th>{strings.Name}</th>
+                          <th>{strings.Location}</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.state.userCustomActions.map(action => (
+                          <tr key={action.Id}>
+                            <td>{action.Title}</td>
+                            <td>{action.Location}</td>
+                            <td>
+                              <button className={styles.actionButton} onClick={() => this._editUserCustomAction(action)}>
+                                <i className='ms-Icon ms-Icon--Edit' aria-hidden='true'></i>
+                              </button>
+                              <button className={styles.actionButton} onClick={() => this._deleteUserCustomAction(action)}>
+                                <i className='ms-Icon ms-Icon--Delete' aria-hidden='true'></i>
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <div>{strings.NoUserCustomActionsFound}</div>
+                  )}
+                </div>
+              )}
             </div>
 
             <p>
               <UserCustomActionCreateDialog context={this.context} />
             </p>
-        </div>
-      </RestrictedContainer>
+          </div>
+        </RestrictedContainer>
+      </div>
     );
+  }
+
+  private _deleteUserCustomAction = (action: IUserCustomActionProps): void => {
+    if (window.confirm(strings.ConfirmDelete)) {
+      this._service.deleteUserCustomAction(this.state.scope, action).then(() => {
+        this.readDataAndSetState();
+      });
+    }
+  }
+
+  private _editUserCustomAction = (action: IUserCustomActionProps): void => {
+    this.setState({ editCustomAction: action });
   }
 
   private async readDataAndSetState(): Promise<void> {
     this.setState({ isLoading: true });
-    const actions: IUserCustomActionProps[] = await this._service.getUserCustomActions(this.props.context, this.state.scope);
+    const actions: IUserCustomActionProps[] = await this._service.getUserCustomActions(this.state.scope);
     this.setState({ userCustomActions: actions, isLoading: false });
   }
 

@@ -3,7 +3,7 @@
 // tslint:disable:export-name
 // tslint:disable:no-null-keyword
 import * as React from 'react';
-import styles from '../ManageUserCustomActions/ManageUserCustomActions.module.scss';
+import styles from './ManageUserCustomActions.module.scss';
 import { IManageUserCustomActionsProps } from './IManageUserCustomActionsProps';
 import { IManageUserCustomActionsState } from './IManageUserCustomActionsState';
 import { IUserCustomActionService } from '../../services/UserCustomActionService/IUserCustomActionService';

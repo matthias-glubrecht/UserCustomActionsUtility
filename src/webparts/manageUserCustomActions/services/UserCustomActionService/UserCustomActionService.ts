@@ -36,9 +36,9 @@ export class UserCustomActionService implements IUserCustomActionService {
     public async getUserCustomActionById(scope: UserCustomActionScope, id: string): Promise<IUserCustomActionProps> {
         try {
             switch (scope) {
-                case 'web':
+                case UserCustomActionScope.Web:
                     return sp.web.userCustomActions.getById(id) as unknown as IUserCustomActionProps;
-                case 'site':
+                case UserCustomActionScope.Site:
                     return sp.site.userCustomActions.getById(id) as unknown as IUserCustomActionProps;
                 default:
                     throw new Error('Invalid scope');

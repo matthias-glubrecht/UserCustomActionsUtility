@@ -1,5 +1,6 @@
-export type UserCustomActionScope = 'web' | 'site';
-export enum UserCustomActionScopeEnum {
-    site = 2,
-    web = 3
-}
+export const UserCustomActionScope = {
+    Site: 'site' as 'site',
+    Web: 'web' as 'web'
+};
+
+export type UserCustomActionScope = typeof UserCustomActionScope[keyof typeof UserCustomActionScope];

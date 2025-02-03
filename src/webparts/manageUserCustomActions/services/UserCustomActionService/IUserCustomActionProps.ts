@@ -1,4 +1,5 @@
 import { SPPermission } from '@microsoft/sp-page-context';
+import { IODataBasePermission } from '../../Utility/Utility';
 
 export interface IUserCustomActionProps {
     Id?: string;
@@ -14,7 +15,7 @@ export interface IUserCustomActionProps {
     CommandUIExtension?: string;
     RegistrationType?: number;
     RegistrationId?: string;
-    Rights?: SPPermission;
+    Rights?: IODataBasePermission;
     Scope?: number;
     ClientSideComponentId?: string;
     ClientSideComponentProperties?: string;

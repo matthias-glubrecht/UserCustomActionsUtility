@@ -1,12 +1,15 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 .scopeSelector {
-  .row {
-    @include ms-Grid-row;
+  .label {
+    display: block;
+    margin: 10px 10px 10px 0px;
+    float: left;
   }
 
-  .column {
-    @include ms-Grid-col;
+  .choices {
+    float: left;
+    display: block;
+    margin-bottom: 10px;
   }
-
 }

@@ -16,5 +16,6 @@ define([], function() {
     "Edit": "Bearbeiten",
     "Delete": "Löschen",
     "ConfirmDelete": "Möchten Sie diese User Custom Action wirklich löschen?",
+    "Permissions": "Berechtigungen"
   }
 });

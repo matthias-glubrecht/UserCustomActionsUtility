@@ -11,14 +11,14 @@ import { UserCustomActionService } from '../../services/UserCustomActionService/
 import { SPPermission } from '@microsoft/sp-page-context';
 import RestrictedContainer from '../RestrictedContainer/RestrictedContainer';
 import * as strings from 'ManageUserCustomActionsWebPartStrings';
-import UserCustomActionCreateDialog from '../UserCustomActionCreateDialog/UserCustomActionCreateDialog';
-import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
-// import { WebPartTitle } from '@pnp/spfx-controls-react';
-// import { Panel } from 'office-ui-fabric-react/lib/Panel';
-// import { DisplayMode } from '@microsoft/sp-core-library';
-import Utility from '../../Utility/Utility';
+import { Utility } from '../../Utility/Utility';
 import { IUserCustomActionProps } from '../../services/UserCustomActionService/IUserCustomActionProps';
 import { WebPartTitle } from '@pnp/spfx-controls-react';
+import ScopeSelector from '../ScopeSelector/ScopeSelector';
+import { UserCustomActionScope } from '../../services/UserCustomActionService/UserCustomActionScope';
+import { UserCustomActionViewPanel}  from '../UserCustomActionViewPanel/UserCustomActionViewPanel';
+import { UserCustomActionEditPanel } from '../UserCustomActionEditPanel/UserCustomActionEditPanel';
+import { DisplayMode } from '@microsoft/sp-core-library';
 
 export default class ManageUserCustomActions extends React.Component<IManageUserCustomActionsProps, IManageUserCustomActionsState> {
   private _service: IUserCustomActionService;
@@ -27,15 +27,15 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
     super(props);
     this._service = new UserCustomActionService(this.props.context);
     this.state = {
-      scope: Utility.GetQueryStringParameter('scope') === 'site' ? 'site' : 'web',
+      scope: Utility.GetQueryStringParameter('scope') === UserCustomActionScope.Site ? UserCustomActionScope.Site : UserCustomActionScope.Web,
       userCustomActions: [],
       isLoading: false,
-      editCustomAction: null
+      editCustomAction: null,
+      viewCustomAction: null
     };
   }
 
   public componentDidMount(): void {
-    // Load user custom actions
     this.readDataAndSetState();
   }
 
@@ -48,20 +48,12 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
   public render(): React.ReactElement<IManageUserCustomActionsProps> {
     return (
       <div className={styles.manageUserCustomActions}>
-        <WebPartTitle displayMode={this.props.displayMode} title={this.props.webPartTitle} updateProperty={this.props.updateTitle} />
+        <WebPartTitle displayMode={DisplayMode.Read} title={this.props.webPartTitle} updateProperty={undefined} />
         <RestrictedContainer Context={this.props.context} RequiredPermissions={SPPermission.manageWeb} NoAccessMessage={strings.NoAccess}>
           <div className={styles.container}>
             <div className={styles.row}>
               <div className={styles.column}>
-                <label>{strings.SelectUserCustomActionScope}</label>
-              </div>
-              <div className={styles.column}>
-                <ChoiceGroup selectedKey={this.state.scope} onChange={this.scopeChanged}
-                  options={[
-                    { key: 'web', text:  strings.Website },
-                    { key: 'site', text: strings.SiteCollection }
-                  ]}
-                />
+                <ScopeSelector selectedScope={this.state.scope} onScopeChange={(scope) => this.setState({ scope: scope, editCustomAction: undefined, viewCustomAction: undefined })} />
               </div>
             </div>
             <div className={styles.row}>
@@ -84,6 +76,9 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
                             <td>{action.Title}</td>
                             <td>{action.Location}</td>
                             <td>
+                              <button className={styles.actionButton} onClick={() => this._viewUserCustomAction(action)}>
+                                <i className='ms-Icon ms-Icon--View' aria-hidden='true'></i>
+                              </button>
                               <button className={styles.actionButton} onClick={() => this._editUserCustomAction(action)}>
                                 <i className='ms-Icon ms-Icon--Edit' aria-hidden='true'></i>
                               </button>
@@ -101,10 +96,16 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
                 </div>
               )}
             </div>
-
-            <p>
-              <UserCustomActionCreateDialog context={this.context} />
-            </p>
+              <UserCustomActionEditPanel
+                userCustomAction={this.state.editCustomAction}
+                templates={this.props.actions}
+                service={this._service}
+                PanelClosed={() => this.setState({ editCustomAction: undefined })}
+              />
+              <UserCustomActionViewPanel
+                userCustomAction={this.state.viewCustomAction}
+                PanelClosed={() => this.setState({ viewCustomAction: undefined })}
+              />
           </div>
         </RestrictedContainer>
       </div>
@@ -120,16 +121,20 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
   }
 
   private _editUserCustomAction = (action: IUserCustomActionProps): void => {
-    this.setState({ editCustomAction: action });
+    this.setState({ editCustomAction: action, viewCustomAction: null });
+  }
+
+  private _viewUserCustomAction = (action: IUserCustomActionProps): void => {
+    if (this.state.viewCustomAction !== action) {
+      this.setState({ viewCustomAction: action, editCustomAction: null });
+    } else {
+      this.setState({ viewCustomAction: undefined });
+    }
   }
 
   private async readDataAndSetState(): Promise<void> {
     this.setState({ isLoading: true });
     const actions: IUserCustomActionProps[] = await this._service.getUserCustomActions(this.state.scope);
     this.setState({ userCustomActions: actions, isLoading: false });
-  }
-
-  private scopeChanged = (event: React.FormEvent<HTMLInputElement>, option: any): void => {
-    this.setState({ scope: option.key });
   }
 }

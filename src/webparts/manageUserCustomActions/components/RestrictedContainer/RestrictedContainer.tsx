@@ -5,7 +5,7 @@ import { IRestrictedContainerProps } from './IRestrictedContainerProps';
 import { IRestrictedContainerState } from './IRestrictedContainerState';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import { SPWeb } from '@microsoft/sp-page-context';
-import Utility from '../../Utility/Utility';
+import { Utility } from '../../Utility/Utility';
 
 export default class RestrictedContainer extends React.Component<IRestrictedContainerProps, IRestrictedContainerState> {
     constructor(props: IRestrictedContainerProps) {

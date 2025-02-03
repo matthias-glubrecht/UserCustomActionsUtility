@@ -17,10 +17,10 @@ export class UserCustomActionService implements IUserCustomActionService {
         try {
             let actions: UserCustomActions | IUserCustomActionProps[];
             switch (scope) {
-                case 'web':
+                case UserCustomActionScope.Web:
                     actions = await sp.web.userCustomActions.get();
                     break;
-                case 'site':
+                case UserCustomActionScope.Site:
                     actions = await sp.site.userCustomActions.get();
                     break;
                 default:
@@ -52,9 +52,9 @@ export class UserCustomActionService implements IUserCustomActionService {
     public async addUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<UserCustomActionAddResult> {
         try {
             switch (scope) {
-                case 'web':
+                case UserCustomActionScope.Web:
                     return sp.web.userCustomActions.add(customAction);
-                case 'site':
+                case UserCustomActionScope.Site:
                     return sp.site.userCustomActions.add(customAction);
                 default:
                     throw new Error('Invalid scope');
@@ -68,9 +68,9 @@ export class UserCustomActionService implements IUserCustomActionService {
     public async updateUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<IUserCustomActionProps> {
         try {
             switch (scope) {
-                case 'web':
+                case UserCustomActionScope.Web:
                     throw new Error('Method not implemented.');
-                case 'site':
+                case UserCustomActionScope.Site:
                     throw new Error('Method not implemented.');
                 default:
                     throw new Error('Invalid scope');
@@ -84,9 +84,9 @@ export class UserCustomActionService implements IUserCustomActionService {
     public async deleteUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<void> {
         try {
             switch (scope) {
-                case 'web':
+                case UserCustomActionScope.Web:
                     return sp.web.userCustomActions.getById(customAction.Id).delete();
-                case 'site':
+                case UserCustomActionScope.Site:
                     return sp.site.userCustomActions.getById(customAction.Id).delete();
                 default:
                     throw new Error('Invalid scope');

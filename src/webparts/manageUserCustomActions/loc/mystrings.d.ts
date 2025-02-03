@@ -16,6 +16,7 @@ declare interface IManageUserCustomActionsWebPartStrings {
   Edit: string;
   Delete: string;
   ConfirmDelete: string;
+  Permissions: string;
 }
 
 declare module 'ManageUserCustomActionsWebPartStrings' {

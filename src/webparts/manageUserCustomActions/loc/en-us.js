@@ -16,5 +16,6 @@ define([], function() {
     "Edit": "Edit",
     "Delete": "Delete",
     "ConfirmDelete": "Are you sure you want to delete this User Custom Action?",
+    "Permissions": "Permissions"
   }
 });

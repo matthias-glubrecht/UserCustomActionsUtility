@@ -20,7 +20,7 @@
     "description": { "default": "Ermöglicht die Verwaltung von User Custom Actions" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Manage User Custom Actions"
+      "webPartTitle": "User Custom Actions verwalten"
     }
   }]
 }

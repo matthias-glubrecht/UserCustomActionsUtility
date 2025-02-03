@@ -1,5 +1,6 @@
+// tslint:disable:max-line-length
 import * as React from 'react';
-import { Layer, IconButton, IButtonProps } from 'office-ui-fabric-react';
+import { Layer, IconButton } from 'office-ui-fabric-react';
 import * as classnames from 'classnames';
 
 import styles from './Panel.module.scss';
@@ -22,7 +23,6 @@ export interface IPanelState {
 
 export default class Panel extends React.Component<IPanelProps, IPanelState> {
     private _onCloseTimer: number;
-    private _onOpenTimer: number;
 
     public constructor(props: IPanelProps, state: IPanelState) {
         super(props, state);
@@ -33,8 +33,9 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
     }
 
     public componentWillReceiveProps(newProps: IPanelProps) {
-        if (newProps.isOpen === this.props.isOpen)
+        if (newProps.isOpen === this.props.isOpen) {
             return;
+        }
         //
         // From https://github.com/OfficeDev/office-ui-fabric-react/blob/master/packages/office-ui-fabric-react/src/components/Modal/Modal.tsx
         //
@@ -45,8 +46,7 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
                 this.setState({
                     isOpen: true
                 });
-            }
-            else {
+            } else {
                 this.setState({
                     isVisible: true
                 });
@@ -58,20 +58,20 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
         }
     }
 
-    public componentDidUpdate(prevProps: IPanelProps, prevState: IPanelState) {
+    public componentDidUpdate(prevProps: IPanelProps, prevState: IPanelState): void {
         if (!prevProps.isOpen && !prevState.isVisible && this.state.isOpen) {
             setTimeout(this._onOpen, 45); // just to set open class a little bit later to have animation
         }
     }
 
     public render(): JSX.Element {
-        if (!this.state.isOpen)
+        if (!this.state.isOpen) {
             return null;
-
+        }
         const optionalClasses: any = {};
         optionalClasses[styles.visible] = this.state.isVisible;
         optionalClasses[styles.right] = true;
-        const className = classnames(styles.panel, optionalClasses);
+        const className: string = classnames(styles.panel, optionalClasses);
 
         return (
             <Layer>
@@ -113,7 +113,8 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
             isOpen: false
         });
 
-        if (this.props.onDismiss)
+        if (this.props.onDismiss) {
             this.props.onDismiss();
+        }
     }
 }

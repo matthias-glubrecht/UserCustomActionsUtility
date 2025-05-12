@@ -1,4 +1,4 @@
-// tslint:disable:max-line-length
+// tslint:disable:max-line-length export-name
 import * as React from 'react';
 import { UserCustomActionScope } from '../../services/UserCustomActionService/UserCustomActionScope';
 import { IScopeSelectorProps } from './IScopeSelectorProps';

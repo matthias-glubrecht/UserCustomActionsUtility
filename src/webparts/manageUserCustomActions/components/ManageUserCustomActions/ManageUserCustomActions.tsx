@@ -1,7 +1,6 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-any
 // tslint:disable:export-name
-// tslint:disable:no-null-keyword
 import * as React from 'react';
 import styles from './ManageUserCustomActions.module.scss';
 import { IManageUserCustomActionsProps } from './IManageUserCustomActionsProps';
@@ -16,7 +15,7 @@ import { IUserCustomActionProps } from '../../services/UserCustomActionService/I
 import { WebPartTitle } from '@pnp/spfx-controls-react';
 import ScopeSelector from '../ScopeSelector/ScopeSelector';
 import { UserCustomActionScope } from '../../services/UserCustomActionService/UserCustomActionScope';
-import { UserCustomActionViewPanel}  from '../UserCustomActionViewPanel/UserCustomActionViewPanel';
+import { UserCustomActionViewPanel } from '../UserCustomActionViewPanel/UserCustomActionViewPanel';
 import { UserCustomActionEditPanel } from '../UserCustomActionEditPanel/UserCustomActionEditPanel';
 import { DisplayMode } from '@microsoft/sp-core-library';
 
@@ -30,8 +29,8 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
       scope: Utility.GetQueryStringParameter('scope') === UserCustomActionScope.Site ? UserCustomActionScope.Site : UserCustomActionScope.Web,
       userCustomActions: [],
       isLoading: false,
-      editCustomAction: null,
-      viewCustomAction: null
+      editCustomAction: undefined,
+      viewCustomAction: undefined
     };
   }
 
@@ -47,7 +46,7 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
 
   public render(): React.ReactElement<IManageUserCustomActionsProps> {
     return (
-      <div className={styles.manageUserCustomActions}>
+      <div className={styles.manageUserCustomActions} >
         <WebPartTitle displayMode={DisplayMode.Read} title={this.props.webPartTitle} updateProperty={undefined} />
         <RestrictedContainer Context={this.props.context} RequiredPermissions={SPPermission.manageWeb} NoAccessMessage={strings.NoAccess}>
           <div className={styles.container}>
@@ -96,16 +95,16 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
                 </div>
               )}
             </div>
-              <UserCustomActionEditPanel
-                userCustomAction={this.state.editCustomAction}
-                templates={this.props.actions}
-                service={this._service}
-                PanelClosed={() => this.setState({ editCustomAction: undefined })}
-              />
-              <UserCustomActionViewPanel
-                userCustomAction={this.state.viewCustomAction}
-                PanelClosed={() => this.setState({ viewCustomAction: undefined })}
-              />
+            <UserCustomActionEditPanel
+              userCustomAction={this.state.editCustomAction}
+              templates={this.props.actions}
+              service={this._service}
+              PanelClosed={() => this.setState({ editCustomAction: undefined })}
+            />
+            <UserCustomActionViewPanel
+              userCustomAction={this.state.viewCustomAction}
+              PanelClosed={() => this.setState({ viewCustomAction: undefined })}
+            />
           </div>
         </RestrictedContainer>
       </div>
@@ -121,14 +120,16 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
   }
 
   private _editUserCustomAction = (action: IUserCustomActionProps): void => {
-    this.setState({ editCustomAction: action, viewCustomAction: null });
+    this.setState({ editCustomAction: action, viewCustomAction: undefined });
   }
 
   private _viewUserCustomAction = (action: IUserCustomActionProps): void => {
-    if (this.state.viewCustomAction !== action) {
-      this.setState({ viewCustomAction: action, editCustomAction: null });
-    } else {
-      this.setState({ viewCustomAction: undefined });
+    if (this.state.editCustomAction === undefined) {
+      if (this.state.viewCustomAction !== action) {
+        this.setState({ viewCustomAction: action, editCustomAction: undefined });
+      } else {
+        this.setState({ viewCustomAction: undefined });
+      }
     }
   }
 

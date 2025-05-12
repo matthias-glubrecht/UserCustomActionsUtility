@@ -1,4 +1,4 @@
-// tslint:disable:max-line-length
+// tslint:disable:max-line-length export-name
 import * as React from 'react';
 // import styles from './EditPanel.module.scss';
 import { IUserCustomActionEditPanelProps } from './IUserCustomActionEditPanelProps';

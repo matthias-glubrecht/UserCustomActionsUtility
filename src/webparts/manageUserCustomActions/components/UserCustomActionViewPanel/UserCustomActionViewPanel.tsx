@@ -1,3 +1,5 @@
+// tslint:disable:export-name
+
 import * as React from 'react';
 import styles from './UserCustomActionViewPanel.module.scss';
 import { IUserCustomActionViewPanelProps } from './IUserCustomActionViewPanelProps';

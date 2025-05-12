@@ -1,5 +1,6 @@
+// tslint:disable:export-name
+
 import * as React from 'react';
-import { SPPermission } from '@microsoft/sp-page-context';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { IPermissionSelectorProps } from './IPermissionSelectorProps';
 import { Utility } from '../../Utility/Utility';

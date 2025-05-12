@@ -1,4 +1,4 @@
-// tslint:disable:max-line-length
+// tslint:disable:max-line-length no-null-keyword no-any
 import * as React from 'react';
 import { Layer, IconButton } from 'office-ui-fabric-react';
 import * as classnames from 'classnames';
@@ -22,6 +22,7 @@ export interface IPanelState {
 }
 
 export default class Panel extends React.Component<IPanelProps, IPanelState> {
+
     private _onCloseTimer: number;
 
     public constructor(props: IPanelProps, state: IPanelState) {
@@ -32,7 +33,7 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
         };
     }
 
-    public componentWillReceiveProps(newProps: IPanelProps) {
+    public componentWillReceiveProps(newProps: IPanelProps): void {
         if (newProps.isOpen === this.props.isOpen) {
             return;
         }
@@ -75,7 +76,7 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
 
         return (
             <Layer>
-                <div className={className}>
+                <div data-id='ucaPanel' className={className}>
                     <div className={styles.header}>
                         <div className={styles.closeButton}>
                             <IconButton
@@ -96,6 +97,7 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
     }
 
     private _close = () => {
+        this.registerCloseHandlers(false);
         this._onCloseTimer = setTimeout(this._onClose, parseFloat(styles.duration));
         this.setState({
             isVisible: false
@@ -106,6 +108,7 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
         this.setState({
             isVisible: true
         });
+        this.registerCloseHandlers(true);
     }
 
     private _onClose = () => {
@@ -115,6 +118,32 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
 
         if (this.props.onDismiss) {
             this.props.onDismiss();
+        }
+    }
+
+    private registerCloseHandlers(register: boolean): void {
+        if (register) {
+            console.log('Click handler registered');
+            document.addEventListener('click', this.panelCloser);
+            document.addEventListener('keydown', this.keyDown);
+        } else {
+            document.removeEventListener('click', this.panelCloser);
+            document.removeEventListener('keydown', this.keyDown);
+            console.log('Click handler unregistered');
+        }
+    }
+
+    private panelCloser = (event: MouseEvent): void => {
+        const className: string = styles.panel;
+        const target: HTMLElement = event.target as HTMLElement;
+        if (!target.closest(`div.${className}`)) {
+            this._close();
+        }
+    }
+
+    private keyDown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            this._close();
         }
     }
 }

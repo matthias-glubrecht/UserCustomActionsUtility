@@ -1,60 +1,151 @@
-// tslint:disable:max-line-length
-export interface IUserCustomActionLocation {
+// tslint:disable:max-line-length no-any
+
+/*export interface IUserCustomActionLocation {
     Location: string;
     Parameters: string[];
 }
+    */
 
-export const userCustomActionLocations: IUserCustomActionLocation[] = [
-    {
-        Location: 'EditControlBlock',
-        Parameters: ['RegistrationType', 'RegistrationId', 'Sequence', 'Title', 'UrlAction', 'ImageUrl', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'DisplayFormToolbar',
-        Parameters: ['RegistrationType', 'RegistrationId', 'Sequence', 'Title', 'UrlAction', 'ImageUrl', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'EditFormToolbar',
-        Parameters: ['RegistrationType', 'RegistrationId', 'Sequence', 'Title', 'UrlAction', 'ImageUrl', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'NewFormToolbar',
-        Parameters: ['RegistrationType', 'RegistrationId', 'Sequence', 'Title', 'UrlAction', 'ImageUrl', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'Microsoft.SharePoint.SiteSettings',
-        Parameters: ['GroupId', 'Sequence', 'Title', 'UrlAction', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'Ribbon.Documents.Actions',
-        Parameters: ['Sequence', 'CommandUIExtension', 'RegistrationType', 'RegistrationId', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'Ribbon.ListItem.Actions',
-        Parameters: ['Sequence', 'CommandUIExtension', 'RegistrationType', 'RegistrationId', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'ScriptLink',
-        Parameters: ['ScriptSrc', 'ScriptBlock', 'Sequence', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'SiteActions',
-        Parameters: ['GroupId', 'Sequence', 'Title', 'UrlAction', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'CommandUI.Ribbon',
-        Parameters: ['CommandUIExtension', 'Sequence', 'RegistrationType', 'RegistrationId', 'Rights', 'Description', 'Name']
-    },
-    {
-        Location: 'ClientSideExtension.ListViewCommandSet',
-        Parameters: ['ClientSideComponentId', 'ClientSideComponentProperties', 'Title', 'Description', 'Name']
-    },
-    {
-        Location: 'ClientSideExtension.ApplicationCustomizer',
-        Parameters: ['ClientSideComponentId', 'ClientSideComponentProperties', 'Title', 'Description', 'Name']
-    },
-    {
-        Location: 'ClientSideExtension.FieldCustomizer',
-        Parameters: ['ClientSideComponentId', 'ClientSideComponentProperties', 'Title', 'Description', 'Name', 'RegistrationId', 'RegistrationType']
-    }
+const userCustomActionLocations: string[] = [
+    'EditControlBlock',
+    'DisplayFormToolbar',
+    'EditFormToolbar',
+    'NewFormToolbar',
+    'Microsoft.SharePoint.SiteSettings',
+    'Ribbon.Documents.Actions',
+    'Ribbon.ListItem.Actions',
+    'ScriptLink',
+    'SiteActions',
+    'CommandUI.Ribbon',
+    'ClientSideExtension.ListViewCommandSet',
+    'ClientSideExtension.ApplicationCustomizer',
+    'ClientSideExtension.FieldCustomizer'
 ];
+
+const userCustomActionProps: any = {
+    'EditControlBlock': [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'DisplayFormToolbar': [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'EditFormToolbar': [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'NewFormToolbar': [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'Microsoft.SharePoint.SiteSettings': [
+        'GroupId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'Ribbon.Documents.Actions': [
+        'Sequence',
+        'CommandUIExtension',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'Ribbon.ListItem.Actions': [
+        'Sequence',
+        'CommandUIExtension',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'ScriptLink': [
+        'ScriptSrc',
+        'ScriptBlock',
+        'Sequence',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'SiteActions': [
+        'GroupId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'CommandUI.Ribbon': [
+        'CommandUIExtension',
+        'Sequence',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    'ClientSideExtension.ListViewCommandSet': [
+        'ClientSideComponentId',
+        'ClientSideComponentProperties',
+        'Title',
+        'Description',
+        'Name'
+    ],
+    'ClientSideExtension.ApplicationCustomizer': [
+        'ClientSideComponentId',
+        'ClientSideComponentProperties',
+        'Title',
+        'Description',
+        'Name'
+    ],
+    'ClientSideExtension.FieldCustomizer': [
+        'ClientSideComponentId',
+        'ClientSideComponentProperties',
+        'Title',
+        'Description',
+        'Name',
+        'RegistrationId',
+        'RegistrationType'
+    ]
+};
+
+export {
+    userCustomActionLocations,
+    userCustomActionProps
+};

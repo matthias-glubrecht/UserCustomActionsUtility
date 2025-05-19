@@ -3,7 +3,7 @@
   "solution": {
     "name": "user-custom-actions-utility-client-side-solution",
     "id": "93740dab-9897-4de1-bea0-793e9b781c85",
-    "version": "1.0.2.0",
+    "version": "1.1.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true
   },

@@ -1,5 +1,5 @@
 $duration: 500ms;
-$width: 470px;
+$width: 670px;
 $contentPadding: 0 20px 20px;
 :export {
     duration: $duration
@@ -22,12 +22,8 @@ $contentPadding: 0 20px 20px;
         }
     }
     &.right {
-        right: -$width;
         transition: right $duration;
         border-left: 1px solid #eaeaea;
-        &.visible {
-            right: 0px;
-        }
     }
     .header {
         position: relative;

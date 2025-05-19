@@ -13,6 +13,7 @@ export enum PanelPosition {
 export interface IPanelProps {
     isOpen?: boolean;
     position?: PanelPosition;
+    width: number;
     onDismiss?: () => void;
 }
 
@@ -22,7 +23,6 @@ export interface IPanelState {
 }
 
 export default class Panel extends React.Component<IPanelProps, IPanelState> {
-
     private _onCloseTimer: number;
 
     public constructor(props: IPanelProps, state: IPanelState) {
@@ -70,14 +70,19 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
             return null;
         }
         const optionalClasses: any = {};
-        optionalClasses[styles.visible] = this.state.isVisible;
         optionalClasses[styles.right] = true;
         const className: string = classnames(styles.panel, optionalClasses);
 
+        const style: React.CSSProperties = {
+            width: `${this.props.width}px`,
+            right: this.state.isVisible ? '0px' : `-${this.props.width}px`
+        };
+
         return (
             <Layer>
-                <div data-id='ucaPanel' className={className}>
+                <div data-id='ucaPanel' className={className} style={style}>
                     <div className={styles.header}>
+                        Hallo? Ist da jemand?
                         <div className={styles.closeButton}>
                             <IconButton
                                 iconProps={{ iconName: 'Cancel' }}
@@ -134,9 +139,8 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
     }
 
     private panelCloser = (event: MouseEvent): void => {
-        const className: string = styles.panel;
         const target: HTMLElement = event.target as HTMLElement;
-        if (!target.closest(`div.${className}`)) {
+        if (!target.closest(`div.${styles.panel}`)) {
             this._close();
         }
     }

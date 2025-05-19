@@ -1,20 +1,23 @@
 .editPanel {
+    overflow-y: auto;
+
     div {
         margin-right: 10px;
     }
-    overflow-y: auto;
+
     h2 {
         margin: 0px 0px 5px 0px;
     }
+
     .heading {
         margin-top: 8px;
         font-size: 1.2em;
         font-weight: bold;
     }
+
     label {
-        vertical-align: top;
         display: inline-block;
-        width: 84px;
+        width: 220px;
         font-weight: bold;
     }
 }

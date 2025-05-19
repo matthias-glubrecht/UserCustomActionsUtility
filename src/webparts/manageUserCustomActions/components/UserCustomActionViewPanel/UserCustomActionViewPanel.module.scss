@@ -1,26 +1,40 @@
 .userCustomActionViewPanel {
+    overflow-y: auto;
+
     div {
         margin-right: 10px;
+
+        span {
+            display: inline-block;
+            vertical-align: text-top;
+
+            pre {
+                margin: 0px;
+                padding: 0px;
+            }
+        }
     }
-    overflow-y: auto;
+
     h2 {
         margin: 0px 0px 5px 0px;
     }
+
     .info {
         border: solid 1px #999;
         padding: 2px 8px;
         margin-top: 12px;
         box-shadow: 4px 4px 4px #999;
     }
+
     .heading {
         margin-top: 8px;
         font-size: 1.2em;
         font-weight: bold;
     }
+
     label {
-        vertical-align: top;
         display: inline-block;
-        width: 84px;
+        width: 220px;
         font-weight: bold;
     }
 }

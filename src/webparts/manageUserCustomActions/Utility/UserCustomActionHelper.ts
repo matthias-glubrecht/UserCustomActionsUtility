@@ -22,7 +22,9 @@ const userCustomActionLocations: string[] = [
     'ClientSideExtension.FieldCustomizer'
 ];
 
-const userCustomActionProps: any = {
+type Keys = typeof userCustomActionLocations[number];
+
+const userCustomActionProps: {[k in Keys]: string[]} = {
     'EditControlBlock': [
         'RegistrationType',
         'RegistrationId',

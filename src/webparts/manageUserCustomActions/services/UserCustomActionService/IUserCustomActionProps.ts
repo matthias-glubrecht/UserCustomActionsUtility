@@ -3,6 +3,7 @@ import { IODataBasePermission } from '../../Utility/Utility';
 export interface IUserCustomActionProps {
     Id?: string;
     Title: string;
+    Name?: string;
     Description?: string;
     Location: string;
     ScriptSrc?: string;

@@ -15,7 +15,7 @@ define([], function() {
     "Location": "Location",
     "Edit": "Edit",
     "Delete": "Delete",
-    "ConfirmDelete": "Are you sure you want to delete this User Custom Action?",
+    "ConfirmDelete": "Are you sure you want to delete the User Custom Action named '#title#'?",
     "Permissions": "Permissions"
   }
 });

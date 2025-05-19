@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 // tslint:disable:export-name
-import { UserCustomActionAddResult, UserCustomActions } from '@pnp/sp/src/usercustomactions';
+import { UserCustomActionAddResult, UserCustomActions, UserCustomActionUpdateResult } from '@pnp/sp/src/usercustomactions';
 import { IUserCustomActionService } from './IUserCustomActionService';
 import { sp } from '@pnp/sp';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
@@ -67,14 +67,18 @@ export class UserCustomActionService implements IUserCustomActionService {
 
     public async updateUserCustomAction(scope: UserCustomActionScope, customAction: IUserCustomActionProps): Promise<IUserCustomActionProps> {
         try {
+            let result: UserCustomActionUpdateResult;
             switch (scope) {
                 case UserCustomActionScope.Web:
-                    throw new Error('Method not implemented.');
+                    result = await sp.web.userCustomActions.getById(customAction.Id).update(customAction);
+                    break;
                 case UserCustomActionScope.Site:
-                    throw new Error('Method not implemented.');
+                    result = await sp.site.userCustomActions.getById(customAction.Id).update(customAction);
+                    break;
                 default:
                     throw new Error('Invalid scope');
             }
+            return result.data as IUserCustomActionProps;
         } catch (error) {
             console.error('Error updating user custom action: ', error);
             throw error;

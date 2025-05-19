@@ -13,7 +13,7 @@ import * as strings from 'ManageUserCustomActionsWebPartStrings';
 import { Utility } from '../../Utility/Utility';
 import { IUserCustomActionProps } from '../../services/UserCustomActionService/IUserCustomActionProps';
 import { WebPartTitle } from '@pnp/spfx-controls-react';
-import ScopeSelector from '../ScopeSelector/ScopeSelector';
+import { ScopeSelector } from '../ScopeSelector/ScopeSelector';
 import { UserCustomActionScope } from '../../services/UserCustomActionService/UserCustomActionScope';
 import { UserCustomActionViewPanel } from '../UserCustomActionViewPanel/UserCustomActionViewPanel';
 import { UserCustomActionEditPanel } from '../UserCustomActionEditPanel/UserCustomActionEditPanel';
@@ -61,50 +61,52 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
               ) : (
                 <div>
                   {this.state.userCustomActions.length > 0 ? (
-                    <table className={styles.userCustomActionsTable}>
-                      <thead>
-                        <tr>
-                          <th>{strings.Name}</th>
-                          <th>{strings.Location}</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.userCustomActions.map(action => (
-                          <tr key={action.Id}>
-                            <td>{action.Title}</td>
-                            <td>{action.Location}</td>
-                            <td>
-                              <button className={styles.actionButton} onClick={() => this._viewUserCustomAction(action)}>
-                                <i className='ms-Icon ms-Icon--View' aria-hidden='true'></i>
-                              </button>
-                              <button className={styles.actionButton} onClick={() => this._editUserCustomAction(action)}>
-                                <i className='ms-Icon ms-Icon--Edit' aria-hidden='true'></i>
-                              </button>
-                              <button className={styles.actionButton} onClick={() => this._deleteUserCustomAction(action)}>
-                                <i className='ms-Icon ms-Icon--Delete' aria-hidden='true'></i>
-                              </button>
-                            </td>
+                    <div>
+                      <table className={styles.userCustomActionsTable}>
+                        <thead>
+                          <tr>
+                            <th>{strings.Name}</th>
+                            <th>{strings.Location}</th>
+                            <th></th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {this.state.userCustomActions.map(action => (
+                            <tr key={action.Id}>
+                              <td>{action.Title}</td>
+                              <td>{action.Location}</td>
+                              <td>
+                                <button className={styles.actionButton} onClick={() => this._viewUserCustomAction(action)}>
+                                  <i className='ms-Icon ms-Icon--View' aria-hidden='true'></i>
+                                </button>
+                                <button className={styles.actionButton} onClick={() => this._editUserCustomAction(action)}>
+                                  <i className='ms-Icon ms-Icon--Edit' aria-hidden='true'></i>
+                                </button>
+                                <button className={styles.actionButton} onClick={() => this._deleteUserCustomAction(action)}>
+                                  <i className='ms-Icon ms-Icon--Delete' aria-hidden='true'></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      <UserCustomActionEditPanel
+                        userCustomAction={this.state.editCustomAction}
+                        templates={this.props.actions}
+                        service={this._service}
+                        PanelClosed={() => this.setState({ editCustomAction: undefined })}
+                      />
+                      <UserCustomActionViewPanel
+                        userCustomAction={this.state.viewCustomAction}
+                        PanelClosed={() => this.setState({ viewCustomAction: undefined })}
+                      />
+                    </div>
                   ) : (
                     <div>{strings.NoUserCustomActionsFound}</div>
                   )}
                 </div>
               )}
             </div>
-            <UserCustomActionEditPanel
-              userCustomAction={this.state.editCustomAction}
-              templates={this.props.actions}
-              service={this._service}
-              PanelClosed={() => this.setState({ editCustomAction: undefined })}
-            />
-            <UserCustomActionViewPanel
-              userCustomAction={this.state.viewCustomAction}
-              PanelClosed={() => this.setState({ viewCustomAction: undefined })}
-            />
           </div>
         </RestrictedContainer>
       </div>
@@ -112,7 +114,7 @@ export default class ManageUserCustomActions extends React.Component<IManageUser
   }
 
   private _deleteUserCustomAction = (action: IUserCustomActionProps): void => {
-    if (window.confirm(strings.ConfirmDelete)) {
+    if (window.confirm(strings.ConfirmDelete.replace('#title#', action.Title))) {
       this._service.deleteUserCustomAction(this.state.scope, action).then(() => {
         this.readDataAndSetState();
       });

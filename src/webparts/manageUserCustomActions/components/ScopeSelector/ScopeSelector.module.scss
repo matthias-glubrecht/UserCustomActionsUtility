@@ -3,13 +3,77 @@
 .scopeSelector {
   .label {
     display: block;
-    margin: 10px 10px 10px 0px;
-    float: left;
+    margin: 0 0 16px 0;
+    font-weight: $ms-font-weight-semibold;
+    font-size: $ms-font-size-m;
+    color: $ms-color-neutralPrimary;
+    clear: both;
   }
 
-  .choices {
-    float: left;
-    display: block;
-    margin-bottom: 10px;
+  .scopeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .radioButtonsContainer {
+    .choices {
+      display: block;
+      margin-bottom: 0px;
+      
+      // Add proper spacing between radio buttons
+      :global(.ms-ChoiceField) {
+        margin-bottom: 12px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        :global(.ms-ChoiceField-field) {
+          padding-left: 0;
+          
+          :global(.ms-ChoiceField-innerField) {
+            padding-left: 28px;
+            
+            :global(.ms-ChoiceField-labelWrapper) {
+              font-size: $ms-font-size-m;
+              color: $ms-color-neutralPrimary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .listSelectorContainer {
+    margin-left: 0px;
+    min-width: 280px;
+    max-width: 400px;
+    
+    // Add some visual spacing
+    :global(.ms-Dropdown) {
+      margin-top: 4px;
+    }
+  }
+
+  // Media query for larger screens - show side by side
+  @media (min-width: 768px) {
+    .scopeContainer {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .radioButtonsContainer {
+      flex: 0 0 auto;
+      min-width: 280px;
+    }
+
+    .listSelectorContainer {
+      flex: 1;
+      margin-left: 0px;
+      max-width: 450px;
+    }
   }
 }

@@ -1,4 +1,4 @@
-// tslint:disable:export-name max-line-length
+// tslint:disable:export-name variable-name max-line-length
 
 import * as React from 'react';
 import styles from './UserCustomActionViewPanel.module.scss';
@@ -10,69 +10,66 @@ import { IUserCustomActionViewPanelProps } from './IUserCustomActionViewPanelPro
 import { userCustomActionProps } from '../../Utility/UserCustomActionHelper';
 // import strings = require('IManageUserCustomActionsWebPartStrings');
 
-export class UserCustomActionViewPanel extends React.Component<IUserCustomActionViewPanelProps, {}> {
-  public constructor(props: IUserCustomActionViewPanelProps) {
-    super(props);
-  }
+export const UserCustomActionViewPanel: (props: IUserCustomActionViewPanelProps) => React.ReactElement<IUserCustomActionViewPanelProps> = (props: IUserCustomActionViewPanelProps): React.ReactElement<IUserCustomActionViewPanelProps> => {
+  const onPanelClosed: () => void = () => {
+    props.PanelClosed();
+  };
 
-  public render(): React.ReactElement<IUserCustomActionViewPanelProps> {
-    return (
-      <Panel isOpen={!!this.props.userCustomAction} position={PanelPosition.Right} width={600} onDismiss={this.onPanelClosed}>
-        {this.props.userCustomAction &&
-          <div className={styles.userCustomActionViewPanel}>
-            <h1>User Custom Action</h1>
-            <div>
-              <Label>Title</Label>
-              <span>{this.props.userCustomAction.Title}</span>
-            </div>
-            <div>
-              <Label>Location</Label>
-              <span>{this.props.userCustomAction.Location}</span>
-            </div>
-            <div>
-              <Label>Description</Label>
-              <span>{this.props.userCustomAction.Description}</span>
-            </div>
-            <div>
-              <Label>Name</Label>
-              <span>{this.props.userCustomAction.Name}</span>
-            </div>
-            {this.isVisible('ClientSideComponentProperties') &&
-              <div>
-                <Label>ClientSideComponentProperties</Label>
-                <span>
-                <pre>{this.props.userCustomAction.ClientSideComponentProperties}</pre>
-                </span>
-              </div>
-            }
-            {this.isVisible('ClientSideComponentId') &&
-              <div>
-                <Label>ClientSideComponentId</Label>
-                <span>{this.props.userCustomAction.ClientSideComponentId}</span>
-              </div>
-            }
-            <div>
-              <Label>Id</Label>
-              <span>{this.props.userCustomAction.Id}</span>
-            </div>
-            {this.isVisible('Rights') &&
-              <div>
-                <Label>Rights</Label>
-                <span>{Utility.PermissionToString(this.props.userCustomAction.Rights)}</span>
-              </div>
-            }
+  const isVisible: (property: string) => boolean = (property: string): boolean => {
+    if (!props.userCustomAction || !props.userCustomAction.Location) {
+      return false;
+    }
+    const { Location } = props.userCustomAction;
+    return userCustomActionProps && userCustomActionProps[Location] && userCustomActionProps[Location].indexOf(property) !== -1;
+  };
+
+  return (
+    <Panel isOpen={!!props.userCustomAction} position={PanelPosition.Right} width={600} onDismiss={onPanelClosed}>
+      {props.userCustomAction &&
+        <div className={styles.userCustomActionViewPanel}>
+          <h1>User Custom Action</h1>
+          <div>
+            <Label>Title</Label>
+            <span>{props.userCustomAction.Title}</span>
           </div>
-        }
-      </Panel>
-    );
-  }
-
-  private isVisible(property: string): boolean {
-    const { Location } = this.props.userCustomAction;
-    return userCustomActionProps[Location].indexOf(property) !== -1;
-  }
-
-  private onPanelClosed = () => {
-    this.props.PanelClosed();
-  }
-}
+          <div>
+            <Label>Location</Label>
+            <span>{props.userCustomAction.Location}</span>
+          </div>
+          <div>
+            <Label>Description</Label>
+            <span>{props.userCustomAction.Description}</span>
+          </div>
+          <div>
+            <Label>Name</Label>
+            <span>{props.userCustomAction.Name}</span>
+          </div>
+          {isVisible('ClientSideComponentProperties') &&
+            <div>
+              <Label>ClientSideComponentProperties</Label>
+              <span>
+              <pre>{props.userCustomAction.ClientSideComponentProperties}</pre>
+              </span>
+            </div>
+          }
+          {isVisible('ClientSideComponentId') &&
+            <div>
+              <Label>ClientSideComponentId</Label>
+              <span>{props.userCustomAction.ClientSideComponentId}</span>
+            </div>
+          }
+          <div>
+            <Label>Id</Label>
+            <span>{props.userCustomAction.Id}</span>
+          </div>
+          {isVisible('Rights') &&
+            <div>
+              <Label>Rights</Label>
+              <span>{Utility.PermissionToString(props.userCustomAction.Rights)}</span>
+            </div>
+          }
+        </div>
+      }
+    </Panel>
+  );
+};

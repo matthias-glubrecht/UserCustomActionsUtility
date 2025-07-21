@@ -15,11 +15,88 @@
 
   .container {
     margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    padding: 0;
+    background-color: $ms-color-white;
   }
 
   .row {
     @include ms-Grid-row;
+  }
+
+  .scopeSelectorSection {
+    background-color: $ms-color-neutralLighterAlt;
+    padding: 24px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid $ms-color-neutralLight;
+    
+    h3 {
+      margin: 0 0 16px 0;
+      font-size: $ms-font-size-l;
+      font-weight: $ms-font-weight-semibold;
+      color: $ms-color-neutralPrimary;
+    }
+  }
+
+  .actionsSection {
+    padding: 0 24px 24px 24px;
+    
+    .sectionHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      
+      h3 {
+        margin: 0;
+        font-size: $ms-font-size-l;
+        font-weight: $ms-font-weight-semibold;
+        color: $ms-color-neutralPrimary;
+      }
+      
+      .createButton {
+        margin-left: auto;
+        min-width: 120px;
+        height: 32px;
+        
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+    
+    h3 {
+      margin: 0 0 20px 0;
+      font-size: $ms-font-size-l;
+      font-weight: $ms-font-weight-semibold;
+      color: $ms-color-neutralPrimary;
+      padding-bottom: 8px;
+      border-bottom: 2px solid $ms-color-themePrimary;
+    }
+
+    .loadingMessage,
+    .emptyMessage {
+      padding: 40px 20px;
+      text-align: center;
+      font-size: $ms-font-size-m;
+      color: $ms-color-neutralSecondary;
+      background-color: $ms-color-neutralLighterAlt;
+      border-radius: 4px;
+      border: 1px dashed $ms-color-neutralLight;
+    }
+
+    .actionsGrid {
+      margin-top: 0;
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+
+    .actionCard {
+      padding: 12px;
+      flex: 1 1 320px;
+      min-width: 320px;
+      max-width: 450px;
+    }
   }
 
   .userCustomActionsTable {
@@ -61,9 +138,9 @@
 
   .column {
     @include ms-Grid-col;
-    @include ms-xl6;
-    @include ms-lg6;
-    @include ms-md6;
+    @include ms-xl12;
+    @include ms-lg12;
+    @include ms-md12;
     @include ms-sm12;
   }
 

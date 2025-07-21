@@ -10,6 +10,9 @@ declare interface IManageUserCustomActionsWebPartStrings {
   SelectUserCustomActionScope: string;
   Website: string;
   SiteCollection: string;
+  List: string;
+  SelectList: string;
+  PleaseSelectList: string;
   Loading: string;
   Name: string;
   Location: string;

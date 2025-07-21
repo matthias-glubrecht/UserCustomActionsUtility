@@ -6,137 +6,49 @@
 }
     */
 
+export enum UserCustomActionLocation {
+    ClientSideExtensionApplicationCustomizer = 'ClientSideExtension.ApplicationCustomizer',
+    ClientSideExtensionFieldCustomizer = 'ClientSideExtension.FieldCustomizer',
+    ClientSideExtensionListViewCommandSet = 'ClientSideExtension.ListViewCommandSet',
+    CommandUIRibbon = 'CommandUI.Ribbon',
+    DisplayFormToolbar = 'DisplayFormToolbar',
+    EditControlBlock = 'EditControlBlock',
+    EditFormToolbar = 'EditFormToolbar',
+    MicrosoftSharePointSiteSettings = 'Microsoft.SharePoint.SiteSettings',
+    NewFormToolbar = 'NewFormToolbar',
+    RibbonDocumentsActions = 'Ribbon.Documents.Actions',
+    RibbonListItemActions = 'Ribbon.ListItem.Actions',
+    ScriptLink = 'ScriptLink',
+    SiteActions = 'SiteActions'
+}
+
+export type UserCustomActionLocationKey = keyof typeof UserCustomActionLocation;
+
 const userCustomActionLocations: string[] = [
-    'EditControlBlock',
-    'DisplayFormToolbar',
-    'EditFormToolbar',
-    'NewFormToolbar',
-    'Microsoft.SharePoint.SiteSettings',
-    'Ribbon.Documents.Actions',
-    'Ribbon.ListItem.Actions',
-    'ScriptLink',
-    'SiteActions',
-    'CommandUI.Ribbon',
-    'ClientSideExtension.ListViewCommandSet',
-    'ClientSideExtension.ApplicationCustomizer',
-    'ClientSideExtension.FieldCustomizer'
+    UserCustomActionLocation.ClientSideExtensionApplicationCustomizer,
+    UserCustomActionLocation.ClientSideExtensionFieldCustomizer,
+    UserCustomActionLocation.ClientSideExtensionListViewCommandSet,
+    UserCustomActionLocation.CommandUIRibbon,
+    UserCustomActionLocation.DisplayFormToolbar,
+    UserCustomActionLocation.EditControlBlock,
+    UserCustomActionLocation.EditFormToolbar,
+    UserCustomActionLocation.MicrosoftSharePointSiteSettings,
+    UserCustomActionLocation.NewFormToolbar,
+    UserCustomActionLocation.RibbonDocumentsActions,
+    UserCustomActionLocation.RibbonListItemActions,
+    UserCustomActionLocation.ScriptLink,
+    UserCustomActionLocation.SiteActions
 ];
 
-type Keys = typeof userCustomActionLocations[number];
-
-const userCustomActionProps: {[k in Keys]: string[]} = {
-    'EditControlBlock': [
-        'RegistrationType',
-        'RegistrationId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'ImageUrl',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'DisplayFormToolbar': [
-        'RegistrationType',
-        'RegistrationId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'ImageUrl',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'EditFormToolbar': [
-        'RegistrationType',
-        'RegistrationId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'ImageUrl',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'NewFormToolbar': [
-        'RegistrationType',
-        'RegistrationId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'ImageUrl',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'Microsoft.SharePoint.SiteSettings': [
-        'GroupId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'Ribbon.Documents.Actions': [
-        'Sequence',
-        'CommandUIExtension',
-        'RegistrationType',
-        'RegistrationId',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'Ribbon.ListItem.Actions': [
-        'Sequence',
-        'CommandUIExtension',
-        'RegistrationType',
-        'RegistrationId',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'ScriptLink': [
-        'ScriptSrc',
-        'ScriptBlock',
-        'Sequence',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'SiteActions': [
-        'GroupId',
-        'Sequence',
-        'Title',
-        'UrlAction',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'CommandUI.Ribbon': [
-        'CommandUIExtension',
-        'Sequence',
-        'RegistrationType',
-        'RegistrationId',
-        'Rights',
-        'Description',
-        'Name'
-    ],
-    'ClientSideExtension.ListViewCommandSet': [
+const userCustomActionProps: {[k in UserCustomActionLocation]: string[]} = {
+    [UserCustomActionLocation.ClientSideExtensionApplicationCustomizer]: [
         'ClientSideComponentId',
         'ClientSideComponentProperties',
         'Title',
         'Description',
         'Name'
     ],
-    'ClientSideExtension.ApplicationCustomizer': [
-        'ClientSideComponentId',
-        'ClientSideComponentProperties',
-        'Title',
-        'Description',
-        'Name'
-    ],
-    'ClientSideExtension.FieldCustomizer': [
+    [UserCustomActionLocation.ClientSideExtensionFieldCustomizer]: [
         'ClientSideComponentId',
         'ClientSideComponentProperties',
         'Title',
@@ -144,6 +56,110 @@ const userCustomActionProps: {[k in Keys]: string[]} = {
         'Name',
         'RegistrationId',
         'RegistrationType'
+    ],
+    [UserCustomActionLocation.ClientSideExtensionListViewCommandSet]: [
+        'ClientSideComponentId',
+        'ClientSideComponentProperties',
+        'Title',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.CommandUIRibbon]: [
+        'CommandUIExtension',
+        'Sequence',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.DisplayFormToolbar]: [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.EditControlBlock]: [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.EditFormToolbar]: [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.MicrosoftSharePointSiteSettings]: [
+        'GroupId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.NewFormToolbar]: [
+        'RegistrationType',
+        'RegistrationId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'ImageUrl',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.RibbonDocumentsActions]: [
+        'Sequence',
+        'CommandUIExtension',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.RibbonListItemActions]: [
+        'Sequence',
+        'CommandUIExtension',
+        'RegistrationType',
+        'RegistrationId',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.ScriptLink]: [
+        'ScriptSrc',
+        'ScriptBlock',
+        'Sequence',
+        'Rights',
+        'Description',
+        'Name'
+    ],
+    [UserCustomActionLocation.SiteActions]: [
+        'GroupId',
+        'Sequence',
+        'Title',
+        'UrlAction',
+        'Rights',
+        'Description',
+        'Name'
     ]
 };
 

@@ -82,7 +82,6 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
             <Layer>
                 <div data-id='ucaPanel' className={className} style={style}>
                     <div className={styles.header}>
-                        Hallo? Ist da jemand?
                         <div className={styles.closeButton}>
                             <IconButton
                                 iconProps={{ iconName: 'Cancel' }}
@@ -128,13 +127,11 @@ export default class Panel extends React.Component<IPanelProps, IPanelState> {
 
     private registerCloseHandlers(register: boolean): void {
         if (register) {
-            console.log('Click handler registered');
             document.addEventListener('click', this.panelCloser);
             document.addEventListener('keydown', this.keyDown);
         } else {
             document.removeEventListener('click', this.panelCloser);
             document.removeEventListener('keydown', this.keyDown);
-            console.log('Click handler unregistered');
         }
     }
 

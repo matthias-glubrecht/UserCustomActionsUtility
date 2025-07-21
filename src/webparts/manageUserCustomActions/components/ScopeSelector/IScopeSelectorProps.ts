@@ -1,6 +1,9 @@
 import { UserCustomActionScope } from '../../services/UserCustomActionService/UserCustomActionScope';
+import { WebPartContext } from '@microsoft/sp-webpart-base';
 
 export interface IScopeSelectorProps {
     selectedScope: UserCustomActionScope;
-    onScopeChange: (scope: UserCustomActionScope) => void;
+    selectedListId?: string;
+    context: WebPartContext;
+    onScopeChange: (scope: UserCustomActionScope, listId?: string) => void;
 }
